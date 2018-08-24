@@ -1,0 +1,41 @@
+<ui:composition 
+
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <div id="layout-header" class="Unselectable fontRegular">
+        <a href="dashboard.xhtml" id="layout-logo">
+            <h:graphicImage style="width: 25px; height: 23px;" name="images/Iconohuerto.png" styleClass="Fleft" library="sentinel-layout"/>
+            <span class="Fs19 FontTitilliumSemiBoldItalic Fleft"><span class="softblue">RECOMENDER</span><span class="hardblue">SYSTEM</span></span>
+        </a>
+        <ul id="sm-topmenu" class="layout-header-widgets white Fs14">
+            <!-- CONTENDRÁ LAS RECOMENDACIONES GENERADAS -->
+            <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-mail"></i><span class="alertBubble BordRad10 Fs9">166</span>
+
+            </li>
+            <!--FOTO DE PERFIL DE USUARIO, CON LISTA DESPLEGABLE QUE PERMITA MODIFICAR SUS DATOS PERSONALES-->
+            <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-user-male"></i>
+                        
+
+            </li>
+            
+
+            <!-- CERRAR SESION  -->
+            <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-power"></i>
+                <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+                    <li class="Animated05"><a href="login.xhtml" class="white Unselectable"><i class="icon-ccw-1"></i>Restart</a></li>
+                    <li class="Animated05"><a href="#" class="white Unselectable"><i class="icon-logout"></i>Cerrar Sesion</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- NEVER REMOVE FOLLOWING 'UL' TAG ! BECAUSE THIS CONTAINS RESPONSIVE MODE HEADER MENU OPEN-CLOSE BUTTON -->
+        <ul id="sm-mobiletopmenu" class="layout-header-widgets white Fs14">
+            <li class="Fleft BordRadHalf TexAlCenter Animated05 DisplayOnResponsive"><i class="icon-th-1"></i></li>
+        </ul>
+        <!-- ****** -->
+    </div>
+
+</ui:composition>

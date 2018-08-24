@@ -1,0 +1,32 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ps="http://primefaces.org/sentinel"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <div id="layout-menubar" class="Unselectable fontRegular">
+        <div class="layout-menubarinner-box" id="buttonArea">
+            <a href="#" id="layout-menubar-resize" class="BordRad3" title="Menu Resize"><i class="icon-th-list-2"></i></a>
+            <a href="#" id="layout-menubar-resize2" class="BordRad3" title="Open Menu"><i class="icon-menu"></i></a>
+        </div>
+
+        <div class="layout-menubarinner-box" id="searchArea">
+            <i class="icon-search floatLeft gray"></i>
+            <input type="text" class="layout-menubar-search floatLeft Animated05" placeholder="Search Here"/>
+        </div>
+        
+        <h:form id="menuform">
+            <ps:menu id="sm_leftmenu">
+                <p:menuitem  value="Registrar producto" icon="icon-home-outline" outcome="Producto" containerStyleClass="layout-menubar-active"/>
+                <p:menuitem  value="Mis productos" icon="icon-home-outline" outcome="ListadoProducto" containerStyleClass="layout-menubar-active"/>
+                <p:submenu id="sm_orientation" label="Orientación" icon="icon-align-right">
+                    <p:menuitem id="sm_rtl" value="RTL" icon="icon-align-right" onclick="$('body').addClass('ui-sentinel-rtl');return false;" />
+                    <p:menuitem id="sm_ltr" value="LTR" icon="icon-align-left" onclick="$('body').removeClass('ui-sentinel-rtl');return false;" />
+                </p:submenu>
+            </ps:menu>
+        </h:form>
+    </div>
+
+</ui:composition>

@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../TemplateUsuario/template.xhtml">
+
+            <ui:define name="content">
+                <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
+                <div class="Container100 ui-fluid">
+                    <div class="ContainerIndent">
+                        <div class="Container">
+                            <h:form>
+                                <br/><br/>
+                                <p:outputLabel for="advanced" value="Periodo de siembra: "  />
+                                <p:selectOneMenu id="advanced" value="#{plantaManegedBean.mes}"  panelStyle="width:180px"
+                                                 required="true" effect="fade" style="width:160px" filter="true">
+                                    <p:ajax event="change" update="Plantas"
+                                            listener="#{plantaManegedBean.buscar()}" />
+                                    <f:selectItem  itemLabel="Enero" itemValue="Enero"  />
+                                    <f:selectItem itemLabel="Febrero" itemValue="Febrero" />
+                                    <f:selectItem  itemLabel="Marzo" itemValue="Marzo" />
+                                    <f:selectItem  itemLabel="Abril" itemValue="Abril" />
+                                    <f:selectItem  itemLabel="Mayo" itemValue="Mayo" />
+                                    <f:selectItem  itemLabel="Junio" itemValue="Junio" />
+                                    <f:selectItem  itemLabel="Julio" itemValue="Julio" />
+                                    <f:selectItem  itemLabel="Agosto" itemValue="Agosto" />
+                                    <f:selectItem  itemLabel="Septiembre" itemValue="Septiembre" />
+                                    <f:selectItem  itemLabel="Octubre" itemValue="Octubre" />
+                                    <f:selectItem  itemLabel="Noviembre" itemValue="Noviembre" />
+                                    <f:selectItem  itemLabel="Diciembre" itemValue="Diciembre" />
+                                </p:selectOneMenu>
+
+
+
+                                <div class="Container100"> .
+                                    <h3>Plantas</h3>
+                                    <p:accordionPanel id="Plantas" value="#{plantaManegedBean.plantasBusquedas}" var="planta">
+                                        <p:tab title="#{planta.nombre}">
+                                            <h:panelGrid columns="2">                      
+
+                                                <p:graphicImage url="#{planta.ruta_imagen}" style="height: 200px; width: 300px;"/>
+                                                <h:outputText value="#{planta.caracteristicas}" />
+
+                                                <h:outputText value="Especie:"  />
+                                                <h:outputText value="#{planta.especie}" />
+
+                                                <h:outputText value="Tamaño:"  />
+                                                <h:outputText value="#{planta.tamaño}" />
+
+                                                <h:outputText value="Aprovechamiento:"  />
+                                                <h:outputText value="#{planta.aprovechamiento}" />
+
+                                                <h:outputText value="Periodo de siembra:"  />
+                                                <h:outputText value="#{planta.periodo_siembra}" />
+
+                                                <h:outputText value="Dias a cosechar:"  />
+                                                <h:outputText value="#{planta.días_a_cosechar}" />
+
+                                                <footer>
+                                                    <p>Iñaki Gabilondo, <a href="http://politica.elpais.com/autor/inaki_gabilondo/a/" title="Colaboraciones en ‘El País’ de Iñaki Gabilondo">colaboraciones en <cite>El país</cite></a></p>
+                                                </footer> 
+                                            </h:panelGrid>
+                                        </p:tab>
+                                    </p:accordionPanel>
+                                </div>          
+                            </h:form>
+                        </div>                       
+                    </div> 
+                </div>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

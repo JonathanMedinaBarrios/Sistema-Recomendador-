@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../TemplateUsuario/template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="form" > 
+                    <p:growl id="mensaje" severity="info,fatal" showSummary="true" showDetail="true"/>
+                    <div class="Container100 ui-fluid">
+                        <div class="ContainerIndent">
+                            <p:panel id="form">
+                                <div class="FontBold Fs18" style="margin: 15px 10px;" >Registrar Huerto</div>
+                                <div class="Separator"></div>
+                                <f:facet name="footer">
+                                    <p:commandButton  id="btnGuardar"  actionListener="#{huertoManagedBean.save()}" 
+                                                      update="form" icon="fa fa-save white Fs15" value="Guardar"  style="max-width:150px;"/>     
+                                </f:facet>
+                                <div class="Container">
+                                    <div class="Container50 Responsive50">
+                                        <div class="Container100">
+                                            <div class="Separator"></div>
+                                            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
+                                                         layout="grid" styleClass="ui-panelgrid-blank" style="border:0px none; background-color:transparent;">
+                                                <p:outputLabel for="nombre" value="nombre"/>
+                                                <p:inputText  id="nombre"  required="true" value="#{huertoManagedBean.huerto.nombre}" />
+                                                <p:outputLabel for="area" value="Area:"/>
+                                                <p:inputText  id="area"  required="true" value="#{huertoManagedBean.huerto.area}" />
+                                            </p:panelGrid>                 
+                                        </div>                                           
+                                    </div>    
+                                    <div class="Container50 Responsive50">   
+                                        <div class="Container100">
+                                            <div class="ContainerIndent">
+                                                <p:inputTextarea rows="5" value="#{huertoManagedBean.huerto.descripcion}"
+                                                                 placeholder="Ingrese una breve descripcion del producto"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:panel>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

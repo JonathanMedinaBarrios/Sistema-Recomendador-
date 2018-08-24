@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../TemplateVivero/templateVivero.xhtml">
+            <ui:define name="content">
+                <br/><br/>
+                <h:form id="form">
+                    <p:outputLabel for="advanced" value="  Tipo de producto: "  />
+                    <p:selectOneMenu id="advanced" value="#{productoJBean.tipo}"  panelStyle="width:180px"
+                                     required="true" effect="fade" style="width:160px" filter="true">
+                        <p:ajax event="change" update="productos"
+                                listener="#{productoJBean.listar()}" />
+                        <f:selectItem itemLabel="Funguicidas" itemValue="Funguicidas" />
+                        <f:selectItem itemLabel="Herbicidas" itemValue="Herbicidas" />
+                        <f:selectItem itemLabel="Insecticidas" itemValue="Insecticidas" />
+                        <f:selectItem itemLabel="Adyuvante" itemValue="Adyuvante" />
+                        <f:selectItem itemLabel="Vitaminas" itemValue="Vitaminas" />
+                        <f:selectItem itemLabel="otro" itemValue="otro" />
+                    </p:selectOneMenu>
+                    <br/><br/><br/><br/>
+
+                    <p:carousel id="productos" var="producto" value="#{productoJBean.lista}"
+                                headerText="Productos" itemStyle="text-align:center" responsive="true">
+                        <p:panelGrid columns="2" style="width:100%;margin:10px 0px"  layout="grid" styleClass="ui-panelgrid-blank">
+
+                            <f:facet name="header">
+                                <h:outputText value="#{producto.nombre}" />
+                            </f:facet>
+                            <h:outputText value="#{producto.tipo}" />
+                            <f:facet name="footer">
+                                <p:separator/>
+                                <p:commandLink  update=":formMostrar" oncomplete="PF('ProductoDialog').show()" title="Detalles del producto">
+                                    <h:outputText styleClass="icon-search"/>
+                                    <f:setPropertyActionListener value="#{producto}" target="#{productoJBean.producto}" />
+                                </p:commandLink>
+                                <p:commandLink  update=":formUpdate" oncomplete="PF('dialogProductoUpdate').show()" title="Modificar">  
+                                    <h:outputText styleClass="icon-edit"/>
+                                    <f:setPropertyActionListener value="#{producto}" target="#{productoJBean.producto}"/>  
+                                </p:commandLink>   
+                                <p:commandLink  update=":formDelete" oncomplete="PF('dialogProductoDelete').show()"  title="Eliminar">  
+                                    <h:outputText styleClass="icon-eraser"/> 
+                                    <f:setPropertyActionListener value="#{producto}" target="#{productoJBean.producto}"/>  
+                                </p:commandLink> 
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </p:carousel>
+                </h:form>
+
+                <h:form id="formMostrar">
+                    <p:dialog header="Info del producto" widgetVar="ProductoDialog" modal="true" showEffect="fade" hideEffect="explode" resizable="false">
+                        <h:panelGrid  columns="2" cellpadding="4" style="margin:0 auto;">
+                            <f:facet name="header">
+                                <h:outputText value="#{productoJBean.producto.nombre}" />
+                            </f:facet>
+
+                            <h:outputText value="Descripcion:" />
+                            <h:outputText value="#{productoJBean.producto.descripcion}" />
+
+                            <h:outputText value="Tipo:" />
+                            <h:outputText value="#{productoJBean.producto.tipo}" />
+
+                            <h:outputText value="Marca:" />
+                            <h:outputText value="#{productoJBean.producto.marca}" />
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formUpdate">
+                    <p:dialog header="Modificar Producto" widgetVar="dialogProductoUpdate" resizable="false"  
+                              showEffect="fade" hideEffect="explode" modal="true" >  
+                        <p:panel class="Container" style="margin:0 auto; width: 250px;">
+                            <div class="Container50 Responsive50">
+                                <div class="Container100">
+                                    <div class="Separator"></div>
+                                    <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                                        <p:outputLabel for="nombre" value="Nombre:"/>
+                                        <p:inputText  id="nombre"  placeholder="nombre del producto" value="#{productoJBean.producto.nombre}" />
+                                        <p:outputLabel  value="Marca:"/>
+                                        <p:inputText  placeholder="Marca del producto" value="#{productoJBean.producto.marca}"/>
+                                        <p:outputLabel for="onemenu" value="Tipo de producto:"/>
+                                        <p:selectOneMenu id="onemenu"  value="#{productoJBean.producto.tipo}">
+                                            <f:selectItem itemLabel="Selecione tipo" itemValue="" />
+                                            <f:selectItem itemLabel="Funguicidas" itemValue="Funguicidas" />
+                                            <f:selectItem itemLabel="Herbicidas" itemValue="Herbicidas" />
+                                            <f:selectItem itemLabel="Insecticidas" itemValue="Insecticidas" />
+                                            <f:selectItem itemLabel="Adyuvante" itemValue="Adyuvante" />
+                                            <f:selectItem itemLabel="Vitaminas" itemValue="Vitaminas" />
+                                            <f:selectItem itemLabel="otro" itemValue="otro" />
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+                                </div>
+                            </div>  
+                            <div class="Container50 Responsive50">   
+                                <div class="Container100">
+                                    <div class="ContainerIndent">
+                                        <p:inputTextarea style="width:100%;" rows="5" value="#{productoJBean.producto.descripcion}" placeholder="Ingrese una breve descripcion del producto"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <f:facet name="footer">
+                                <p:commandButton actionListener="#{productoJBean.update()}" update=":form" oncomplete="PF('dialogProductoUpdate').hide()" value="Aceptar" icon="icon-save"   />
+                                <p:commandButton  oncomplete="PF('dialogProductoUpdate').hide()" value="Cancelar" icon="icon-cancel"  />
+                            </f:facet>
+                        </p:panel>
+
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formDelete">
+                    <p:confirmDialog id="confirmDialog" message="¿Esta seguro de eliminar el registro?"  showEffect="fade" hideEffect="explode"
+                                     header="Eliminar Producto #{productoJBean.producto.nombre} " severity="alert" widgetVar="dialogProductoDelete" >
+                        <p:commandButton actionListener="#{productoJBean.delete()}" update=":form" oncomplete="PF('dialogProductoDelete').hide()" value="Si"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton  oncomplete="PF('dialogProductoDelete').hide()" value="No"  styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

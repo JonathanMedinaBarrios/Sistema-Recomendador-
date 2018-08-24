@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../TemplateVivero/templateVivero.xhtml">
+
+            <ui:define name="content">
+                <h:form id="formulario" enctype=""> 
+                    <p:growl id="mensaje" severity="info,fatal" showSummary="true" showDetail="true"/>
+                    <div class="Container100 ui-fluid">
+                        <div class="ContainerIndent">
+                            <p:panel id="panel" header="form" style="margin-bottom:10px;">
+                                <div class="FontBold Fs18" style="margin: 15px 10px;" >Registrar Producto</div>
+                                <div class="Separator"/>
+                                <f:facet name="footer">
+                                    <p:commandButton ajax="false" update="panel"
+                                                     id="btnGuardar"  actionListener="#{productoJBean.save()}" 
+                                                     value="Guardar"
+                                                     style="max-width:150px;">
+                                    </p:commandButton>     
+                                </f:facet>
+                                <div class="Container">
+                                    <div class="Container50 Responsive50">
+                                        <div class="Container100">
+                                            <div class="Separator"></div>
+                                            <p:panelGrid  columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
+                                                          layout="grid" styleClass="ui-panelgrid-blank" style="border:0px none; background-color:transparent;">
+                                                <p:outputLabel for="nombre" value="Nombre:"/>
+                                                <p:inputText  id="nombre"  required="true" value="#{productoJBean.producto.nombre}"/>
+                                                <p:outputLabel for="marca" value="Marca:"/>
+                                                <p:inputText  id="marca" placeholder="" value="#{productoJBean.producto.marca}" /> 
+                                                <p:column/><p:column/><p:column/><p:column/>
+                                                <p:column/><p:column/><p:column/><p:column/>
+                                                <p:outputLabel for="onemenu" value="Tipo:"  />
+                                                <p:selectOneMenu id="onemenu"  value="#{productoJBean.producto.tipo}" required="true">
+                                                    <f:selectItem itemLabel="Selecione tipo" itemValue="" />
+                                                    <f:selectItem itemLabel="Funguicidas" itemValue="Funguicidas" />
+                                                    <f:selectItem itemLabel="Herbicidas" itemValue="Herbicidas" />
+                                                    <f:selectItem itemLabel="Insecticidas" itemValue="Insecticidas" />
+                                                    <f:selectItem itemLabel="Adyuvante" itemValue="Adyuvante" />
+                                                    <f:selectItem itemLabel="Vitaminas" itemValue="Vitaminas" />
+                                                    <f:selectItem itemLabel="otro" itemValue="otro" />
+                                                </p:selectOneMenu> 
+                                            </p:panelGrid> 
+                                        </div>
+                                    </div>  
+                                    <div class="Container50 Responsive50">   
+                                        <div class="Container100">
+                                            <div class="ContainerIndent">
+                                                <p:inputTextarea rows="5"
+                                                                 value="#{productoJBean.producto.descripcion}"
+                                                                 placeholder="Ingrese una breve descripcion del producto"/>            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--
+                                    <div columns="9" >
+                                        <p:outputLabel id="imagen" value="Subir imagen del producto:  "/>
+                                        <p:fileUpload value="{productoJBean.imagen}" mode="simple" dragDropSupport="false"
+                                                      update="messages" sizeLimit="1000000" fileLimit="1"
+                                                      allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  
+                                                      fileLimitMessage="El maximo de imagenes es 1" 
+                                                      invalidFileMessage="Se debe seleccionar una imagen"/>
+                                    </div>-->
+                                </div>
+                            </p:panel> 
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
