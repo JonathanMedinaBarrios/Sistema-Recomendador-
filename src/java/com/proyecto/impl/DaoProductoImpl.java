@@ -7,7 +7,7 @@ package com.proyecto.impl;
 
 import com.proyecto.dao.DaoProducto;
 import com.proyecto.db.JdbcConnect;
-import com.proyecto.modelo.Producto;
+import com.proyecto.POJOS.Producto;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,7 +36,7 @@ public class DaoProductoImpl implements DaoProducto<Producto>,Serializable {
             pst.setString(2, p.getDescripcion());
             pst.setString(3, p.getMarca());
             pst.setString(4, p.getTipo());
-            pst.setInt(5, p.getId_vivero());
+            pst.setInt(5, p.getVivero().getIdVivero());
             pst.executeUpdate();
             connect.commit();
         } catch (ClassNotFoundException | SQLException ex) {

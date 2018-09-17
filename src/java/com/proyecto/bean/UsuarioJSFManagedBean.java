@@ -7,7 +7,7 @@ package com.proyecto.bean;
 
 import com.proyecto.dao.DaoUsuario;
 import com.proyecto.impl.DaoUsuarioImpl;
-import com.proyecto.modelo.Usuario;
+import com.proyecto.POJOS.Usuario;
 import javax.inject.Named;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -71,23 +71,22 @@ public class UsuarioJSFManagedBean implements Serializable {
     public String registrarUsuario() {
 
         if(!dao.ConsultaUsuario(usuario.getCorreo())){
-            if(this.getPassword().equals(this.getUsuario().getContraseña())) {
+            if(this.getPassword().equals(this.getUsuario().getContrasena())) {
             dao.Save(usuario);
+
             return "index";
         } else {
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN,
-                            "Invalid Login!",
-                            "Contraseñas no coinciden...!"));
+            FacesMessage msg = new  FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "No coiciden contraseñas!"); 
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            usuario.setContrasena("");
+            password = ""; 
             return "Registro";
         }
         }else{ 
-               FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN,
-                            "Invalid Login!",
-                            "El correo se encuentra registrado...!"));
+            FacesMessage msg = new  FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "El correo se encuentra registrado...!"); 
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+               
+                            
             return "Registro";
         }
         
@@ -103,11 +102,8 @@ public class UsuarioJSFManagedBean implements Serializable {
         if (usuario != null){
             return "/ViewsUsuario/PerfilUsuario.xhtml";
         } else {
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN,
-                            "Invalid Login!",
-                            ""));
+            FacesMessage msg = new  FacesMessage(FacesMessage.SEVERITY_FATAL, "Invalid Login!", ""); 
+            FacesContext.getCurrentInstance().addMessage(null, msg);
             return "index";
         }
     }

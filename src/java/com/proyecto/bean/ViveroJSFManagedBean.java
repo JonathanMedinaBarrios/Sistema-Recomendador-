@@ -7,8 +7,7 @@ package com.proyecto.bean;
 
 import com.proyecto.dao.DaoVivero;
 import com.proyecto.impl.DaoViveroImpl;
-import com.proyecto.modelo.Usuario;
-import com.proyecto.modelo.Vivero;
+import com.proyecto.POJOS.Vivero;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -64,7 +63,7 @@ public class ViveroJSFManagedBean implements Serializable {
     public String saveVivero(){
         
         if(!dao.ConsultaVivero(vivero.getCorreo())){
-           if(this.getPassword().equals(this.getVivero().getContraseña())) {
+           if(this.getPassword().equals(this.getVivero().getContrasena())) {
             dao.save(vivero);
             return "index";
         } else {

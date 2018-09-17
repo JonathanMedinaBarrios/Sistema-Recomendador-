@@ -7,7 +7,7 @@ package com.proyecto.bean;
 
 import com.proyecto.dao.DaoHuerto;
 import com.proyecto.impl.DaoHuertoImpl;
-import com.proyecto.modelo.Huerto;
+import com.proyecto.POJOS.Huerto;
 import java.util.List;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
@@ -39,7 +39,7 @@ public class HuertoJSFManagedBean {
     /*LISTAR HUERTOS*/
     @PostConstruct
     public void iniciar() {
-        lista = dao.listarHuerto(usuario.getUsuario().getId());
+        lista = dao.listarHuerto(usuario.getUsuario().getIdUsuario());
     }
 
     public Huerto getHuerto() {
@@ -61,9 +61,9 @@ public class HuertoJSFManagedBean {
         
     public void save(){
         try {
-            huerto.setId_Usuario(usuario.getUsuario().getId());
+            huerto.setUsuario(usuario.getUsuario());
             dao.save(huerto);
-            lista = dao.listarHuerto(usuario.getUsuario().getId());
+            lista = dao.listarHuerto(usuario.getUsuario().getIdUsuario());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "aviso", "Registro exitoso..."));
             huerto = new Huerto(); 
         } catch (Exception e) {
@@ -72,7 +72,7 @@ public class HuertoJSFManagedBean {
     } 
     
     public void listar(){
-        lista = dao.listarHuerto(usuario.getUsuario().getId());
+        lista = dao.listarHuerto(usuario.getUsuario().getIdUsuario());
         huerto = new Huerto(); 
     }
         

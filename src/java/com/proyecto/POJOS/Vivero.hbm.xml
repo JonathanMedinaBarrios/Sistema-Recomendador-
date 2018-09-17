@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-sep-2018 14:00:12 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.proyecto.POJOS.Vivero" table="vivero" schema="public" optimistic-lock="version">
+        <id name="idVivero" type="int">
+            <column name="id_vivero" />
+            <generator class="sequence">
+                <param name="sequence">viveros_id_vivero_seq</param>
+            </generator>
+        </id>
+        <property name="nombrevivero" type="string">
+            <column name="nombrevivero" length="15" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="25" />
+        </property>
+        <property name="cuidad" type="string">
+            <column name="cuidad" length="15" />
+        </property>
+        <property name="correo" type="string">
+            <column name="correo" length="25" not-null="true" />
+        </property>
+        <property name="contrasena" type="string">
+            <column name="contrasena" length="25" not-null="true" />
+        </property>
+        <set name="productos" table="producto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_vivero" not-null="true" />
+            </key>
+            <one-to-many class="com.proyecto.POJOS.Producto" />
+        </set>
+    </class>
+</hibernate-mapping>

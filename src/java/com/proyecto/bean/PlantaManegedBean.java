@@ -7,7 +7,7 @@ package com.proyecto.bean;
     
 import com.proyecto.dao.DaoPlanta;
 import com.proyecto.impl.DaoPlantaImpl;
-import com.proyecto.modelo.Planta;
+import com.proyecto.POJOS.Planta;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;

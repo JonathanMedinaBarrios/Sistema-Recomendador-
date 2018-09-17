@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-sep-2018 14:00:12 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.proyecto.POJOS.Planta" table="planta" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="25" not-null="true" />
+        </property>
+        <property name="rutaimagen" type="string">
+            <column name="rutaimagen" length="150" />
+        </property>
+        <property name="especie" type="string">
+            <column name="especie" length="25" />
+        </property>
+        <property name="caracteristicas" type="string">
+            <column name="caracteristicas" length="3000" />
+        </property>
+        <property name="tamano" type="string">
+            <column name="tamano" length="25" />
+        </property>
+        <property name="periodoSiembra" type="string">
+            <column name="periodo_siembra" length="250" />
+        </property>
+        <property name="aprovechamiento" type="string">
+            <column name="aprovechamiento" length="25" />
+        </property>
+        <property name="diasACosechar" type="java.lang.Integer">
+            <column name="dias_a_cosechar" />
+        </property>
+        <set name="cultivos" table="cultivo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_planta" not-null="true" />
+            </key>
+            <one-to-many class="com.proyecto.POJOS.Cultivo" />
+        </set>
+    </class>
+</hibernate-mapping>

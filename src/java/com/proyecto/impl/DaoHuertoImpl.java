@@ -6,16 +6,13 @@
 package com.proyecto.impl;
 
 import com.proyecto.dao.DaoHuerto;
-import com.proyecto.db.JdbcConnect;
-import com.proyecto.modelo.Huerto;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import com.proyecto.POJOS.Huerto;;
+import com.proyecto.util.HibernateUtil;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -25,82 +22,35 @@ public class DaoHuertoImpl implements DaoHuerto<Huerto> {
 
     @Override
     public void save(Huerto h) {
-        Connection connect = null;
-        try {
-            connect = JdbcConnect.getConnect();
-
-            PreparedStatement pst = connect.
-                    prepareStatement("Insert into huertos (nombre,descripcion,area,id_usuario) values(?,?,?,?);");
-            pst.setString(1,h.getNombre());
-            pst.setString(2,h.getDescripcion());
-            pst.setDouble(3,h.getArea());
-            pst.setInt(4,h.getId_Usuario());
-            pst.executeUpdate();
-            connect.commit();
-        } catch (ClassNotFoundException | SQLException ex){
-            try {
-                if (connect != null) {
-                    connect.rollback();
-                }
-            } catch (SQLException ex1) {
-                Logger.getLogger(DaoHuertoImpl.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-            Logger.getLogger(DaoHuertoImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        SessionFactory sf =  HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession(); 
+        Transaction tx = sesion.beginTransaction(); 
+        sesion.save(h); 
+        tx.commit();
+        sesion.close();
     }
 
     
     @Override
     public List<Huerto> listarHuerto(int id_usuario) {
-        List<Huerto> lista = new ArrayList<>();
-        try {
-            Connection connect = JdbcConnect.getConnect();
-            PreparedStatement pst = connect.
-                    prepareStatement("Select * from Huertos where id_usuario=?;");
-            pst.setInt(1,id_usuario);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                 Huerto h = new Huerto(); 
-                 h.setIdhuerto(rs.getInt(1));
-                 h.setNombre(rs.getString(2));
-                 h.setDescripcion(rs.getString(4));
-                 h.setArea(rs.getDouble(5));
-                 h.setNumeroCultio(this.NumeroCultivo(h.getIdhuerto())); 
-                 lista.add(h); 
-            }
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DaoProductoImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        List <Huerto> lista;
+        SessionFactory sf =  HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession(); 
+        Query consulta = sesion.createQuery("from Huerto where  id_usuario= :id_usuario"); 
+        consulta.setParameter("id_usuario",id_usuario); 
+        lista = consulta.list();
+        sesion.close();
         return lista;
     }
     
     @Override
     public int NumeroCultivo(int id_huerto) {
-        Connection connect = null;
         int numeroCultivo = 0; 
-        try {
-           connect = JdbcConnect.getConnect();
-            PreparedStatement pst = connect.
-                    prepareStatement("SELECT COUNT(*) from Cultivos where id_huerto=?"); 
-            pst.setInt(1,id_huerto);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-               numeroCultivo = rs.getInt(1);
-            }
-            
-        } catch (ClassNotFoundException | SQLException e) {
-            try {
-                if (connect != null) {
-                    connect.rollback();
-                }
-            } catch (SQLException ex1) {
-                Logger.getLogger(DaoCultivoImpl.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-            Logger.getLogger(DaoCultivoImpl.class.getName()).log(Level.SEVERE, null, e);
-        }     
-        return  numeroCultivo;        
+        SessionFactory sf =  HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession(); 
+        Query consulta = sesion.createQuery("SELECT COUNT(*) from Cultivo where id_huerto = :id_huerto"); 
+        consulta.setParameter("id_huerto",id_huerto); 
+        return  numeroCultivo = (int)consulta.uniqueResult();        
     }
 
 }

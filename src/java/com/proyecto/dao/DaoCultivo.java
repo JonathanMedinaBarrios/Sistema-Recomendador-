@@ -15,7 +15,7 @@ import java.util.List;
 public interface DaoCultivo<Cultivo> {
     
     public void save(Cultivo c);
-    public void delete(int id_cultivo);
+    public void delete(Cultivo cultivo);
     public void update(Cultivo c);
     List<Cultivo> listarCultivos(int id_Huerto);
    

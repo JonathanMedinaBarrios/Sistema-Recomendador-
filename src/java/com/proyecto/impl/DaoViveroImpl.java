@@ -6,15 +6,14 @@
 package com.proyecto.impl;
 
 import com.proyecto.dao.DaoVivero;
-import com.proyecto.db.JdbcConnect;
-import com.proyecto.modelo.Vivero;
+import com.proyecto.POJOS.Vivero;
+import com.proyecto.util.HibernateUtil;
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -26,91 +25,50 @@ public class DaoViveroImpl implements DaoVivero<Vivero>, Serializable {
     @Override
     public Vivero login(String correo, String password) {
         Vivero V = null; 
-        try{
-             Connection  connect = JdbcConnect.getConnect();
-             PreparedStatement pst = connect.
-                    prepareStatement("SELECT * FROM viveros where correo=? and contraseña=? ;");
-            pst.setString(1,correo);
-            pst.setString(2,password );
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()){
-                V = new Vivero();
-                V.setId_vivero(rs.getInt(1));
-                V.setNombreVivero(rs.getString(2));
-                V.setDireccion(rs.getString(3));
-                V.setCorreo(rs.getString(4));
-                V.setContraseña(rs.getString(5));
-            }            
-        }catch(ClassNotFoundException | SQLException ex){
-             Logger.getLogger(DaoUsuarioImpl.class.getName()).log(Level.SEVERE, null, ex);
+        SessionFactory sf =  HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession(); 
+        String hql = "from Vivero where correo = '"+correo+"'  and  contrasena ='"+password+"'";
+        try {
+            V  = (Vivero) sesion.createQuery(hql).uniqueResult(); 
+        } catch (Exception e) {
         }
+        sesion.close();
         return V; 
     }
 
     @Override
     public void save(Vivero V) {
-        Connection  connect = null; 
-        try {
-             connect = JdbcConnect.getConnect();
-             PreparedStatement pst = connect.
-                    prepareStatement("Insert into Viveros (nombreVivero,correo,contraseña) values(?,?,?);");
-            pst.setString(1, V.getNombreVivero() );
-            pst.setString(2, V.getCorreo());
-            pst.setString(3, V.getContraseña());
-            pst.executeUpdate();
-            connect.commit();
-        } catch (ClassNotFoundException | SQLException e) {
-            try {
-                if (connect != null) {
-                    connect.rollback();
-                }
-            } catch (SQLException ex1) {
-                Logger.getLogger(DaoUsuarioImpl.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-            Logger.getLogger(DaoUsuarioImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
+        SessionFactory sf =  HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession(); 
+        Transaction tx = sesion.beginTransaction(); 
+        sesion.save(V); 
+        tx.commit();
+        sesion.close();
     }
 
     @Override
     public boolean ConsultaVivero(String correo) {
        boolean existe = false; 
-        try{
-             Connection  connect = JdbcConnect.getConnect();
-             PreparedStatement pst = connect.
-                    prepareStatement("SELECT * FROM viveros where correo=? and contraseña=? ;");
-            pst.setString(1,correo);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()){
-                existe = true;
-            }            
-        }catch(ClassNotFoundException | SQLException ex){
-             Logger.getLogger(DaoUsuarioImpl.class.getName()).log(Level.SEVERE, null, ex);
+        SessionFactory sf =  HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession(); 
+        Query consulta = sesion.createQuery("from Vivero where correo = :email"); 
+        consulta.setParameter("email",correo); 
+        List<Vivero> viveros = consulta.list();
+         for(Vivero vivero :viveros ){
+            existe = true; 
         }
+        sesion.close();
         return existe; 
     }
 
     @Override
     public void CompletarPerfil(Vivero v) {
-        Connection  connect = null; 
-        try {
-             connect = JdbcConnect.getConnect();
-             PreparedStatement pst = connect.
-                    prepareStatement("Update  Viveros set direccion=?,cuidad=? where id_Usuario=?;");
-            pst.setString(1, v.getDireccion() );
-            pst.setString(2, v.getCiudad());
-            pst.setInt(3, v.getId_vivero());
-            pst.executeUpdate();
-            connect.commit();
-        } catch (ClassNotFoundException | SQLException e) {
-            try {
-                if (connect != null) {
-                    connect.rollback();
-                }
-            } catch (SQLException ex1) {
-                Logger.getLogger(DaoUsuarioImpl.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-            Logger.getLogger(DaoUsuarioImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
+       SessionFactory sf =  HibernateUtil.getSessionFactory();
+       Session sesion = sf.openSession(); 
+       Transaction tx = sesion.beginTransaction(); 
+       sesion.update(v); 
+       tx.commit();
+       sesion.close();
     }
     
 }

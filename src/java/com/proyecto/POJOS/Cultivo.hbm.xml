@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-sep-2018 14:00:12 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.proyecto.POJOS.Cultivo" table="cultivo" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="huerto" class="com.proyecto.POJOS.Huerto" fetch="select">
+            <column name="id_huerto" not-null="true" />
+        </many-to-one>
+        <many-to-one name="planta" class="com.proyecto.POJOS.Planta" fetch="select">
+            <column name="id_planta" not-null="true" />
+        </many-to-one>
+        <property name="fechaSiembra" type="date">
+            <column name="fecha_siembra" length="13" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

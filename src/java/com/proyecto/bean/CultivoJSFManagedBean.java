@@ -7,7 +7,7 @@ package com.proyecto.bean;
 
 import com.proyecto.dao.DaoCultivo;
 import com.proyecto.impl.DaoCultivoImpl;
-import com.proyecto.modelo.Cultivo;
+import com.proyecto.POJOS.Cultivo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -61,7 +61,7 @@ public class CultivoJSFManagedBean {
 
     public void save() {
         try {
-            cultivo.setId_huerto(huerto.getHuerto().getIdhuerto());
+            cultivo.setHuerto(huerto.getHuerto());
             dao.save(cultivo);
             cultivo = new Cultivo(); 
             huerto.listar();
@@ -73,7 +73,7 @@ public class CultivoJSFManagedBean {
     }
         
     public String listar(){
-         lista= dao.listarCultivos(huerto.getHuerto().getIdhuerto());
+         lista= dao.listarCultivos(huerto.getHuerto().getId());
          return "MisCultivos"; 
     }
     

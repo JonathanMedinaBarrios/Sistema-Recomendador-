@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-sep-2018 14:00:12 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.proyecto.POJOS.Producto" table="producto" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="vivero" class="com.proyecto.POJOS.Vivero" fetch="select">
+            <column name="id_vivero" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="15" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="300" />
+        </property>
+        <property name="marca" type="string">
+            <column name="marca" length="15" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="tipo" length="15" />
+        </property>
+    </class>
+</hibernate-mapping>

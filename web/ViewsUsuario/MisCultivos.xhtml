@@ -27,14 +27,14 @@
                                         <p:repeat  value="#{cultivoManagedBean.lista}" var="Cultivo">
                                             <h:panelGrid  columns="2" style="width:100%; height: 100px;" columnClasses="logo,detail">
                                                 <p:outputPanel>
-                                                    <p:graphicImage url="#{Cultivo.planta.ruta_imagen}" 
+                                                    <p:graphicImage url="#{Cultivo.planta.rutaimagen}" 
                                                                     style="height: 100px; width: 100px; border-radius: 50%;"/>
                                                 </p:outputPanel>
                                                 <p:outputPanel>
                                                     <h:panelGrid columns="1" cellpadding="5" style="width: 250px;">
                                                         <h:outputText value="#{Cultivo.planta.nombre}" />
                                                         <p:progressBar value="#{Cultivo.progreso}" labelTemplate="{value}%" displayOnly="true"/>
-                                                        <h:outputText value="#{Cultivo.fecha_siembra}" />
+                                                        <h:outputText value="#{Cultivo.fechaSiembra}" />
                                                     </h:panelGrid>
                                                 </p:outputPanel>
                                                 

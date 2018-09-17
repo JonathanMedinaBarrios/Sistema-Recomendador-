@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-sep-2018 14:00:12 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.proyecto.POJOS.Huerto" table="huerto" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="usuario" class="com.proyecto.POJOS.Usuario" fetch="select">
+            <column name="id_usuario" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="25" not-null="true" />
+        </property>
+        <property name="rutaimagen" type="string">
+            <column name="rutaimagen" length="150" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="300" />
+        </property>
+        <property name="area" type="string">
+            <column name="area" />
+        </property>
+        <set name="cultivos" table="cultivo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_huerto" not-null="true" />
+            </key>
+            <one-to-many class="com.proyecto.POJOS.Cultivo" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -25,12 +25,12 @@
                                 <p:graphicImage url="/resources/img/Huertos/huertoPerfil.jpg" 
                                                 style="height: 100px; width: 100px; border-radius: 50%;"/>
                                 
-                                <p:outputLabel  value="Número de Cultivos: #{Huerto.numeroCultio}"  />
+                                <p:outputLabel  value="Número de Cultivos: #{Huerto.numeroCultivo}"  />
 
                                 <f:facet name="footer">
-                                    <p:commandLink  action="#{cultivoManagedBean.listar()}" title="Ver cultivos" ajax="false" >
+                                    <p:commandLink  action="#{cultivoManagedBean.lista}" title="Ver cultivos" ajax="false" >
                                         <h:outputText styleClass="icon-leaf"/>
-                                        <f:setPropertyActionListener value="#{Huerto}" target="#{huertoManagedBean.huerto}" />
+                                        <f:setPropertyActionListener value="#Huerto}" target="#{huertoManagedBean.huerto}" />
                                     </p:commandLink>
                                     
                                     <p:commandLink  update=":formAgregarCultivo" oncomplete="PF('AgregarCultivoDialog').show()" title="Agregar un nuevo cultivo">
@@ -51,14 +51,14 @@
                             <h:panelGrid  columns="2" cellpadding="4" style="margin:0 auto;">
 
                                 <p:outputLabel for="advanced" value="nombre de la planta:"  />
-                                <p:selectOneMenu id="advanced" value="#{cultivoManagedBean.cultivo.id_planta}"  panelStyle="width:180px"
+                                <p:selectOneMenu id="advanced" value="#{cultivoManagedBean.cultivo.planta.id}"  panelStyle="width:180px"
                                                  required="true" effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
                                     <f:selectItems value="#{plantaManegedBean.plantas}" var="Planta" itemLabel="#{Planta.nombre}" itemValue="#{Planta.id}" />
 
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="fecha" value="¿Cuándo fue Sembrada?" />
-                                <p:calendar id="fecha" value="#{cultivoManagedBean.cultivo.fecha_siembra}" />
+                                <p:calendar id="fecha" value="#{cultivoManagedBean.cultivo.fechaSiembra}" />
 
                             </h:panelGrid>
 

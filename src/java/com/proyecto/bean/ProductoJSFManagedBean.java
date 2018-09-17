@@ -7,7 +7,7 @@ package com.proyecto.bean;
 
 import com.proyecto.dao.DaoProducto;
 import com.proyecto.impl.DaoProductoImpl;
-import com.proyecto.modelo.Producto;
+import com.proyecto.POJOS.Producto;
 import com.proyecto.util.UtilJSF;
 import java.io.File;
 import java.io.FileInputStream;
@@ -76,7 +76,7 @@ public class ProductoJSFManagedBean implements Serializable {
     /*LISTAR PRODUCTOS*/
     @PostConstruct
     public void iniciar() {
-        lista = dao.ListarProducto(vivero.getVivero().getId_vivero(),tipo);
+        lista = dao.ListarProducto(vivero.getVivero().getIdVivero(),tipo);
     }
 
     public List<Producto> getLista() {
@@ -90,9 +90,9 @@ public class ProductoJSFManagedBean implements Serializable {
     /*FIN LISTAR */
     public void save() {
         try { 
-            producto.setId_vivero(vivero.getVivero().getId_vivero());
+            producto.getVivero().setIdVivero(vivero.getVivero().getIdVivero());
             dao.save(producto);
-            lista = dao.ListarProducto(vivero.getVivero().getId_vivero(),tipo);
+            lista = dao.ListarProducto(vivero.getVivero().getIdVivero(),tipo);
             producto = new Producto(); 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "aviso", "Registro exitoso..."));
         } catch (Exception e) {
@@ -107,12 +107,12 @@ public class ProductoJSFManagedBean implements Serializable {
 
     public void delete() {
         dao.Delete(producto);
-        lista = dao.ListarProducto(vivero.getVivero().getId_vivero(),tipo);
+        lista = dao.ListarProducto(vivero.getVivero().getIdVivero(),tipo);
     }
     
     
     public void listar(){
-        lista = dao.ListarProducto(vivero.getVivero().getId_vivero(),tipo);
+        lista = dao.ListarProducto(vivero.getVivero().getIdVivero(),tipo);
     }
     
     public void  guardarImagen(UploadedFile file) {

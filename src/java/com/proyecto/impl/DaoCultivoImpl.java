@@ -7,8 +7,9 @@ package com.proyecto.impl;
 
 import com.proyecto.dao.DaoCultivo;
 import com.proyecto.db.JdbcConnect;
-import com.proyecto.modelo.Cultivo;
-import com.proyecto.modelo.Planta;
+import com.proyecto.POJOS.Cultivo;
+import com.proyecto.POJOS.Planta;
+import com.proyecto.util.HibernateUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Date;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -28,106 +33,58 @@ public class DaoCultivoImpl implements DaoCultivo<Cultivo> {
 
     @Override
     public void save(Cultivo c) {
-        Connection connect = null;
-        try {
-            connect = JdbcConnect.getConnect();
-
-            PreparedStatement pst = connect.
-                    prepareStatement("Insert into Cultivos (fecha_siembra,id_Planta, id_huerto)"
-                            + "values(?,?,?);");
-            pst.setTimestamp(1, new Timestamp(c.getFecha_siembra().getTime()));
-            pst.setInt(2, c.getId_planta());
-            pst.setInt(3, c.getId_huerto());
-            pst.executeUpdate();
-            connect.commit();
-        } catch (ClassNotFoundException | SQLException ex) {
-            try {
-                if (connect != null) {
-                    connect.rollback();
-                }
-            } catch (SQLException ex1) {
-                Logger.getLogger(DaoCultivoImpl.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-            Logger.getLogger(DaoCultivoImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        SessionFactory sf =  HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession(); 
+        Transaction tx = sesion.beginTransaction(); 
+        sesion.save(c); 
+        tx.commit();
+        sesion.close();
     }
 
     @Override
-    public List<Cultivo> listarCultivos(int id_Huerto) {
+    public List<Cultivo> listarCultivos(int id_huerto) {
         List<Cultivo> lista = new ArrayList<>();
+         SessionFactory sf =  HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession();
+        Query consulta = sesion.createSQLQuery(" SELECT planta.nombre,planta.dias_a_cosechar,cultivo.fecha_siembra,planta.rutaimagen\n" +
+                                               " FROM cultivo \n" +
+                                               " INNER JOIN huerto   on cultivo.id_huerto  = huerto.id\n" +
+                                               " INNER JOIN planta   on cultivo.id_Planta  = planta.id\n" +
+                                               " where cultivo.id_huerto= :id_huerto");
+        consulta.setParameter("id_huerto",id_huerto); 
+        ResultSet rs;
+        rs = (ResultSet) consulta.list();
         try {
-            Connection connect = JdbcConnect.getConnect();
-            PreparedStatement pst = connect.
-                    prepareStatement("Select plantas.nombre,plantas.Días_a_cosechar,cultivos.fecha_siembra,plantas.RutaImagen\n"
-                            + "from cultivos \n"
-                            + "INNER JOIN huertos   on cultivos.id_huerto  = huertos.id\n"
-                            + "INNER JOIN plantas   on cultivos.id_Planta  = plantas.id\n"
-                            + "where cultivos.id_huerto=?;");
-            pst.setInt(1, id_Huerto);
-            ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 Cultivo c = new Cultivo();
                 Planta planta = new Planta();
-                c.setFecha_siembra(rs.getDate(3));
+                c.setFechaSiembra(rs.getDate(3));
                 c.setPlanta(planta);
                 c.getPlanta().setNombre(rs.getString(1));
-                c.getPlanta().setDías_a_cosechar(rs.getInt(2));
-                c.getPlanta().setRuta_imagen(rs.getString(4));
-                c.setProgreso(this.progreso(c.getFecha_siembra(),c.getPlanta().getDías_a_cosechar())); 
+                c.getPlanta().setDiasACosechar(rs.getInt(2));
+                c.getPlanta().setRutaimagen(rs.getString(4));
+                c.setProgreso(this.progreso(c.getFechaSiembra(),c.getPlanta().getDiasACosechar())); 
                 lista.add(c);
             }
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(DaoCultivoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
     }
 
     @Override
-    public void delete(int id_cultivo) {
-        Connection connect = null;
-        try {
-            connect = JdbcConnect.getConnect();
-
-            PreparedStatement pst = connect.prepareStatement("DELETE FROM Cultivos where id=?");
-            pst.setInt(1, id_cultivo);
-            pst.executeUpdate();
-            connect.commit();
-        } catch (ClassNotFoundException | SQLException e) {
-            try {
-                if (connect != null) {
-                    connect.rollback();
-                }
-            } catch (SQLException ex1) {
-                Logger.getLogger(DaoCultivoImpl.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-            Logger.getLogger(DaoCultivoImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
+    public void delete(Cultivo c) {
+        SessionFactory sf =  HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession(); 
+        Transaction tx = sesion.beginTransaction(); 
+        sesion.delete(c); 
+        tx.commit();
+        sesion.close();
     }
 
     @Override
     public void update(Cultivo c) {
-        Connection connect = null;
-        try {
-            connect = JdbcConnect.getConnect();
-
-            PreparedStatement pst = connect.
-                    prepareStatement("Update Cultivo"
-                            + "set fecha_siembra=? where id=?");
-            pst.setTimestamp(1, new Timestamp(c.getFecha_siembra().getTime()));
-            pst.setInt(2, c.getId());
-            pst.executeUpdate();
-            connect.commit();
-
-        } catch (ClassNotFoundException | SQLException e) {
-            try {
-                if (connect != null) {
-                    connect.rollback();
-                }
-            } catch (SQLException ex1) {
-                Logger.getLogger(DaoCultivoImpl.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-            Logger.getLogger(DaoCultivoImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
+        
     }
     
     public double progreso(Date fecha,int DiasCosechar){
