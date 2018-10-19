@@ -16,11 +16,12 @@
             <i class="icon-search floatLeft gray"></i>
             <input type="text" class="layout-menubar-search floatLeft Animated05" placeholder="Buscar Planta"/>
         </div>
-        
+
         <h:form id="menuform">
             <ps:menu id="sm_leftmenu">
-                <p:menuitem  value="Mis Huertos" icon="icon-pagelines" outcome="MisHuertos" containerStyleClass="layout-menubar-active"/>
                 <p:menuitem  value="Registrar Huerto" icon="icon-edit" outcome="RegistrarHuerto" containerStyleClass="layout-menubar-active"/>
+                <p:menuitem  value="Mis Huertos" icon="icon-pagelines" outcome="MisHuertos" containerStyleClass="layout-menubar-active"/>
+                <p:menuitem  value="Mi Calendario de cosecha" icon="icon-calendar" outcome="Calendario" containerStyleClass="layout-menubar-active"/>
                 <p:menuitem  value="Listadado de plantas" icon="icon-list-alt" outcome="ListadoDeplantas" containerStyleClass="layout-menubar-active"/>
                 <p:submenu id="sm_orientation" label="Orientación" icon="icon-align-right">
                     <p:menuitem id="sm_rtl" value="RTL" icon="icon-align-right" onclick="$('body').addClass('ui-sentinel-rtl');return false;" />

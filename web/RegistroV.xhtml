@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        
-        <!--DAYANA BUENDIA MIRANDA -->
-        
         <title>Registro Vivero</title>
+
+        <link rel="icon" type="image/png" href="#{request.contextPath}/resources/img/icons/tomato.png"/>
+        <!--==============================================================================--> 
         <!-- BOOTSTRAP CSS CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
               integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"></link>
@@ -17,30 +17,16 @@
         <!--==============================================================================--> 
         <!--CUSTOM CSS-->
         <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/registro.css"/>
-        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/main.css"/>
-        <!--==============================================================================--> 
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/util.css"/>
     </h:head>
     <h:body>
-       <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-            <div class="container">
-                <a href="index.xhtml" class="navbar-brand">
-                    Preservación y cuidado de Huertos
-                </a>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="index.xhtml" class="nav-link">Iniciar Sesion</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <div class="fondoRegistro">
-            <div class="dark-overlay">
-                <h:form >
-                    <div class="login100-form validate-form" >
+
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100">
+                    <h:form class="login100-form validate-form">
                         <span class="login100-form-title p-b-34">
-                            REGISTRO
+                            REGISTRO DE VIVERO
                         </span>
 
                         <div class="wrap-input100" data-validate="Nombre">
@@ -69,14 +55,25 @@
                         <div class="container-login100-form-btn">
                             <h:commandButton action="#{viveroManagedBean.saveVivero()}" value="Registrar" class="login100-form-btn"/>
                         </div>
-                    </div>
-                </h:form>
+
+                        <div class="w-full text-center p-t-27 p-b-239">
+                            <span class="txt1">
+
+                            </span>
+                        </div>
+                        <div class="w-full text-center">
+                            <a href="index.xhtml" class="txt3">
+                                REGRESAR AL INICIO
+                            </a>
+                        </div>
+                    </h:form>
+
+                    <div class="login100-more fondoRegistroV"></div>
+                </div>
             </div>
         </div>
 
-
-
-
+        <div id="dropDownSelect1"></div>
 
         <!--========================================================================--> 
         <!-- BOOTSTRAP SCRIPT CDN -->

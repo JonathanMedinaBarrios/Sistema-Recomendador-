@@ -6,18 +6,9 @@
 package com.proyecto.impl;
 
 import com.proyecto.dao.DaoPlanta;
-import com.proyecto.db.JdbcConnect;
 import com.proyecto.POJOS.Planta;
-import com.proyecto.POJOS.Usuario;
 import com.proyecto.util.HibernateUtil;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

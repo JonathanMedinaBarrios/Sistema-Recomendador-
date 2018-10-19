@@ -5,11 +5,16 @@
  */
 package com.proyecto.bean;
 
+import com.proyecto.POJOS.Recomendacion;
 import com.proyecto.dao.DaoUsuario;
 import com.proyecto.impl.DaoUsuarioImpl;
 import com.proyecto.POJOS.Usuario;
+import com.proyecto.dao.DaoHistorialRecomendacion;
+import com.proyecto.impl.DaoHistorialRecomendacionImpl;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
@@ -17,7 +22,7 @@ import javax.faces.context.FacesContext;
 
 /**
  *
- * @author FAMILIA
+ * @author JONATHAN MEDINA BARRIOS
  */
 @Named(value = "usuarioManagedBean")
 @ApplicationScoped
@@ -27,13 +32,15 @@ public class UsuarioJSFManagedBean implements Serializable {
     private String password;
     private Usuario usuario = new Usuario();
     private DaoUsuario dao = new DaoUsuarioImpl();
+    private DaoHistorialRecomendacion dao2 = new DaoHistorialRecomendacionImpl(); 
+    private List<Recomendacion> listaRecomendacion  = new ArrayList<>();
 
     /**
      * Creates a new instance of UsuarioJSFManagedBean
      */
     @PostConstruct
     public void iniciar() {
-        
+        listaRecomendacion = dao2.listarRecomendacion(usuario.getIdUsuario());
     }
 
     public UsuarioJSFManagedBean() {
@@ -100,7 +107,7 @@ public class UsuarioJSFManagedBean implements Serializable {
 
         usuario = (Usuario) dao.login(username, password);
         if (usuario != null){
-            return "/ViewsUsuario/PerfilUsuario.xhtml";
+            return "/faces/ViewsUsuario/PerfilUsuario.xhtml";
         } else {
             FacesMessage msg = new  FacesMessage(FacesMessage.SEVERITY_FATAL, "Invalid Login!", ""); 
             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -110,6 +117,16 @@ public class UsuarioJSFManagedBean implements Serializable {
 
     public String cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index.xhtml";
+        password = ""; 
+        return "/faces/InicioU.xhtml";
     }
+
+    public List<Recomendacion> getListaRecomendacion() {
+        return listaRecomendacion;
+    }
+
+    public void setListaRecomendacion(List<Recomendacion> listaRecomendacion) {
+        this.listaRecomendacion = listaRecomendacion;
+    }
+    
 }

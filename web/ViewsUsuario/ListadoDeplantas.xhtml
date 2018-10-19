@@ -11,6 +11,7 @@
         <ui:composition template="./../TemplateUsuario/template.xhtml">
 
             <ui:define name="content">
+
                 <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
                 <div class="Container100 ui-fluid">
                     <div class="ContainerIndent">
@@ -44,23 +45,23 @@
                                         <p:tab title="#{planta.nombre}">
                                             <h:panelGrid columns="2">                      
 
-                                                <p:graphicImage url="#{planta.ruta_imagen}" style="height: 200px; width: 300px;"/>
+                                                <p:graphicImage url="#{planta.rutaimagen}" style="height: 200px; width: 300px;"/>
                                                 <h:outputText value="#{planta.caracteristicas}" />
 
                                                 <h:outputText value="Especie:"  />
                                                 <h:outputText value="#{planta.especie}" />
 
                                                 <h:outputText value="Tamaño:"  />
-                                                <h:outputText value="#{planta.tamaño}" />
+                                                <h:outputText value="#{planta.tamano}" />
 
                                                 <h:outputText value="Aprovechamiento:"  />
                                                 <h:outputText value="#{planta.aprovechamiento}" />
 
                                                 <h:outputText value="Periodo de siembra:"  />
-                                                <h:outputText value="#{planta.periodo_siembra}" />
+                                                <h:outputText value="#{planta.periodoSiembra}" />
 
                                                 <h:outputText value="Dias a cosechar:"  />
-                                                <h:outputText value="#{planta.días_a_cosechar}" />
+                                                <h:outputText value="#{planta.diasACosechar}" />
 
                                                 <footer>
                                                     <p>Iñaki Gabilondo, <a href="http://politica.elpais.com/autor/inaki_gabilondo/a/" title="Colaboraciones en ‘El País’ de Iñaki Gabilondo">colaboraciones en <cite>El país</cite></a></p>

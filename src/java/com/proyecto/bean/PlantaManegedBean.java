@@ -23,7 +23,7 @@ import org.primefaces.event.TabCloseEvent;
 @ApplicationScoped
 public class PlantaManegedBean {
     
-    private List<Planta> plantas = new ArrayList<>();;
+    private List<Planta> plantas;
     private DaoPlanta dao = new DaoPlantaImpl();
     private List<Planta> PlantasBusquedas = new ArrayList<>();
     private String mes = "Enero"; 

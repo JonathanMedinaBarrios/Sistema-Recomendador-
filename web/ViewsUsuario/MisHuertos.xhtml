@@ -11,7 +11,9 @@
         <ui:composition template="./../TemplateUsuario/template.xhtml">
 
             <ui:define name="content">
+                
                 <h:form id="form">
+                    <p:growl id="mensaje" severity="info,fatal" showSummary="true" showDetail="true"/>
                     <p:dataGrid var="Huerto" value="#{huertoManagedBean.lista}" columns="3" layout="grid"
                                 rows="12" paginator="true" id="prodcutos"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -24,17 +26,17 @@
 
                                 <p:graphicImage url="/resources/img/Huertos/huertoPerfil.jpg" 
                                                 style="height: 100px; width: 100px; border-radius: 50%;"/>
-                                
+
                                 <p:outputLabel  value="Número de Cultivos: #{Huerto.numeroCultivo}"  />
 
                                 <f:facet name="footer">
-                                    <p:commandLink  action="#{cultivoManagedBean.lista}" title="Ver cultivos" ajax="false" >
+                                    <p:commandLink  action="#{cultivoManagedBean.listar()}" title="Ver cultivos" ajax="true" >
                                         <h:outputText styleClass="icon-leaf"/>
-                                        <f:setPropertyActionListener value="#Huerto}" target="#{huertoManagedBean.huerto}" />
+                                        <f:setPropertyActionListener value="#{Huerto}" target="#{huertoManagedBean.huerto}" />
                                     </p:commandLink>
-                                    
+
                                     <p:commandLink  update=":formAgregarCultivo" oncomplete="PF('AgregarCultivoDialog').show()" title="Agregar un nuevo cultivo">
-                                        <h:outputText styleClass="icon-plus-squared"/>
+                                        <h:outputText  styleClass="icon-plus-squared"/>
                                         <f:setPropertyActionListener value="#{Huerto}" target="#{huertoManagedBean.huerto}" />
                                     </p:commandLink>
 
@@ -51,26 +53,56 @@
                             <h:panelGrid  columns="2" cellpadding="4" style="margin:0 auto;">
 
                                 <p:outputLabel for="advanced" value="nombre de la planta:"  />
-                                <p:selectOneMenu id="advanced" value="#{cultivoManagedBean.cultivo.planta.id}"  panelStyle="width:180px"
+                                <p:selectOneMenu id="advanced" value="#{cultivoManagedBean.planta.id}"  panelStyle="width:180px"
                                                  required="true" effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
                                     <f:selectItems value="#{plantaManegedBean.plantas}" var="Planta" itemLabel="#{Planta.nombre}" itemValue="#{Planta.id}" />
 
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="fecha" value="¿Cuándo fue Sembrada?" />
-                                <p:calendar id="fecha" value="#{cultivoManagedBean.cultivo.fechaSiembra}" />
-
+                                <p:calendar id="fecha" value="#{cultivoManagedBean.cultivo.fechaSiembra}" locale="es" />
                             </h:panelGrid>
 
                             <f:facet name="footer">
-                                <p:commandButton  actionListener="#{cultivoManagedBean.save()}" update=":form" oncomplete="PF('AgregarCultivoDialog').hide()" value="Aceptar" icon="icon-save"   />
+                                <p:commandButton  action= "#{cultivoManagedBean.save()}" update=":form" oncomplete="PF('AgregarCultivoDialog').hide()" value="Aceptar" icon="icon-save"   />
                                 <p:commandButton  oncomplete="PF('AgregarCultivoDialog').hide()" value="Cancelar" icon="icon-cancel"  />
                             </f:facet>
 
                         </p:panel>
                     </p:dialog>
                 </h:form>
-                
+
+
+
+                <script type="text/javascript">
+                    PrimeFaces.locales['es'] = {
+                        closeText: 'Cerrar',
+                        prevText: 'Anterior',
+                        nextText: 'Siguiente',
+                        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                        dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                        weekHeader: 'Semana',
+                        firstDay: 1,
+                        isRTL: false,
+                        showMonthAfterYear: false,
+                        yearSuffix: '',
+                        timeOnlyTitle: 'Sólo hora',
+                        timeText: 'Tiempo',
+                        hourText: 'Hora',
+                        minuteText: 'Minuto',
+                        secondText: 'Segundo',
+                        currentText: 'Fecha actual',
+                        ampm: false,
+                        month: 'Mes',
+                        week: 'Semana',
+                        day: 'Día',
+                        allDayText: 'Todo el día'
+                    };
+                </script>
+
             </ui:define>
 
         </ui:composition>

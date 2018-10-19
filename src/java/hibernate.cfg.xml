@@ -52,5 +52,8 @@ Contributor(s):
     <mapping resource="com/proyecto/POJOS/Planta.hbm.xml"/>
     <mapping resource="com/proyecto/POJOS/Huerto.hbm.xml"/>
     <mapping resource="com/proyecto/POJOS/Usuario.hbm.xml"/>
+    <mapping resource="com/proyecto/POJOS/Recomendacion.hbm.xml"/>
+    <mapping resource="com/proyecto/POJOS/Cuidadosplanta.hbm.xml"/>
+    <mapping resource="com/proyecto/POJOS/Historialrecomendacion.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

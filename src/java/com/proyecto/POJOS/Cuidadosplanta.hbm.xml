@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-oct-2018 15:45:10 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.proyecto.POJOS.Cuidadosplanta" table="cuidadosplanta" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="planta" class="com.proyecto.POJOS.Planta" fetch="select">
+            <column name="id_planta" />
+        </many-to-one>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="5000" />
+        </property>
+    </class>
+</hibernate-mapping>

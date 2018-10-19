@@ -172,6 +172,14 @@ iframe {
     height: calc(100vh);
 }
 
+.fondoRegistroV{
+    background-image: url('../img/bg2.png');
+    background-size: cover;
+    padding: 50px;
+    margin: 0px auto;
+    height: calc(100vh);
+}
+
 /*//////////////////////////////////////////////////////////////////
 [ login ]*/
 

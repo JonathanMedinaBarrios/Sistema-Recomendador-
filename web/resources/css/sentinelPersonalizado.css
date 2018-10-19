@@ -1,0 +1,112 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 05-oct-2018, 15:08:37
+    Author     : JONATHAN MEDINA    
+*/
+
+/*Style For Schedule (V. 5.1.12) --------------------------------------------------------------------------------------*/
+
+.fc{border:solid 1px #DAF7A6; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -webkit-transition: all 0.2s ease; -moz-transition: all 0.2s ease; -ms-transition: all 0.2s ease;
+                  -o-transition: all 0.2s ease; transition: all 0.2s ease; background-color: #FBFCFD; color: #72828B;}
+.fc:hover, .fc:focus{border:solid 1px #82E0AA;}
+.fc-toolbar{border-bottom: solid 1px #E8EDF2; background-color: #F3F5F7; padding: 1.5%; margin: 0px !important;
+           border-top-left-radius:4px !important; border-top-right-radius:4px !important;
+           -webkit-border-top-left-radius:4px !important; -webkit-border-top-right-radius:4px !important;
+           -moz-border-top-left-radius:4px !important; -moz-border-top-right-radius:4px !important;}
+.fc-toolbar button{border:solid 1px #b9cdd6; background-color: #f3f5f7; color:#97B4C2; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; font-size: 14px;}
+    .fc-toolbar .fc-prev-button .ui-icon{background-image:url("#{resource['primefaces-sentinel:images/left-one-arrow-for-data.svg']}"); background-position: center !important;
+                                                                          background-repeat: no-repeat; background-size: 100%;}
+    .fc-toolbar .fc-next-button .ui-icon{background-image:url("#{resource['primefaces-sentinel:images/right-one-arrow-for-data.svg']}"); background-position: center !important;
+                                                                          background-repeat: no-repeat; background-size: 100%;}
+.fc-toolbar .fc-button-group button{ margin: 0px 1px;}
+.fc-toolbar .ui-state-active, .fc-toolbar .ui-state-hover{border:solid 1px #27AAE1; color:#27aee1;}
+
+.fc-left{}
+.fc-right{color: #27aae1; font-size: 12px;}
+.fc-center{}
+
+.fc-basic-view td.fc-week-number span, .fc-basic-view td.fc-day-number{padding-right:10px; padding-top: 5px !important;}
+.fc-day-grid .fc-week{border-right:solid 1px transparent !important;}
+.fc-view-container{padding: 10px;}
+    .fc-view-container .fc-event{background-color:#148F77  ; border: solid 1px #148F77;}
+        .fc-view-container .fc-event .fc-event-inner{margin:3px;}
+    .fc-view-container .fc-month-view table{border-collapse:inherit; border-spacing:1px;}
+        .fc-view-container table thead tr th{ background-color: #eff3f5; color:#9fadb5; border-collapse:separate; padding: 5px; border-radius:3px !important; -webkit-border-radius:3px !important;
+                                         -moz-border-radius:3px !important; border:0px;}
+        .fc-view-container table thead tr .fc-sun, .fc-view-container table thead tr .fc-sat{background-color:#dae8ef;}
+        .fc-view-container .fc-content-skeleton table thead tr .fc-sun, .fc-view-container .fc-content-skeleton table thead tr .fc-sat{background-color:transparent;}
+        .fc-view-container table tbody tr .fc-day{border:solid 1px #e5ebf0 !important; color:#9fadb5; border-collapse:separate; padding: 5px; border-radius:3px !important; -webkit-border-radius:3px !important;
+                                         -moz-border-radius:3px !important; -webkit-transition: all 0.2s ease; -moz-transition: all 0.2s ease; -ms-transition: all 0.2s ease;
+                                         -o-transition: all 0.2s ease; transition: all 0.2s ease; border-top-width: 1px !important;}
+        .fc-view-container .fc-month-view table tbody tr .fc-day:hover{border-color:#27AAE1 !important; color:#27AAE1;}
+        .fc-view-container .fc-month-view .fc-bg table tbody tr .fc-today{border-color:#f686a6 !important; color:#f686a6;}
+        .fc-view-container .fc-agendaWeek-view .fc-bg table tbody tr .fc-today{background-color: #EFF3F5; color:#f686a6;}
+        .fc-view-container  table  tbody  tr > .ui-widget-content{border-width: 0px;}
+        .fc-slats table tbody tr td{border-width:1px !important; border-color:#e5ebf0;}
+ 
+.fc-agenda-slots tbody tr .ui-widget-header, .fc-agenda-allday tbody tr .ui-widget-header{color:#72828B !important;}
+.fc-daygrid .fc-row{border-right:0px !important;}
+hr.ui-widget-header{background-color: #E5EBF0; border-width:0px;}
+
+.fc-more-cell .fc-more{color: #27aae1; text-decoration: underline;}
+.fc-popover{border:solid 1px #C0C5C7; background-color: #FBFCFD; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px;}
+    .fc-popover .fc-header {padding:5px 7px !important; color: #72828B;}
+        .fc-popover .fc-header .fc-close{background-image:url("#{resource['primefaces-sentinel:images/delete-gray.svg']}"); background-position: center !important; 
+                         background-repeat: no-repeat; background-size: 100%;}
+
+/*Style For Data Grid ------------------------------------------------------------------------------------- */
+
+.ui-datagrid{border:solid 1px #C0C5C7; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; background-color: #FBFCFD; color: #72828B;}
+.ui-datagrid:hover, .ui-datagrid:focus{border:solid 1px #27AAE1;}
+    .ui-datagrid .ui-datagrid-header{border: solid 1px #175787; color: #ffffff; text-shadow: 0 -1px 0 #0A385E; margin:2px 2px 0px 2px;
+                                     border-radius: 3px !important; -webkit-border-radius: 3px !important; -moz-border-radius: 3px !important;
+background: #1578c9;
+background: -moz-linear-gradient(top, #148F77   0%, #0b66b1 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, #148F77  ), color-stop(100%, #148F77));
+background: -webkit-linear-gradient(top, #148F77   0%, #148F77   100%);
+background: -o-linear-gradient(top, #148F77   0%, #148F77   100%);
+background: -ms-linear-gradient(top, #148F77   0%, #148F77   100%);
+background: linear-gradient(to bottom, #148F77   0%, #148F77   100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1578c9', endColorstr='#0b66b1', GradientType=0 );}
+    .ui-datagrid .ui-datagrid-content{font-size:14px;}
+    
+   .ui-datagrid .ui-paginator{background-color: #F3F5F7; margin: 0px;}
+    .ui-datagrid .ui-paginator-top{ border-bottom:solid 1px #148F77 !important; margin-bottom: 3px;}
+    .ui-datagrid .ui-paginator-bottom{border-top: solid 1px #148F77 !important; margin-top: 3px;}
+    .ui-datagrid .ui-paginator .ui-paginator-pages .ui-state-active{background-color:#148F77; color:#ffffff !important; background-repeat:no-repeat; border:solid 1px #148F77;}
+
+    
+    /*Style For DataTable ------------------------------------------------------------------------------------- */
+  
+ .ui-datatable .ui-datagrid-header,
+    .ui-datatable .ui-datatable-header,
+    .ui-datatable .ui-datatable-subtable-header,
+    .ui-datatable .ui-datatable-summaryrow{border: solid 1px #148F77; color: #ffffff; text-shadow: 0 -1px 0 #0A385E; margin:2px 2px 0px 2px;
+                                     border-radius: 3px !important; -webkit-border-radius: 3px !important; -moz-border-radius: 3px !important;
+background: #148F77;
+background: -moz-linear-gradient(top, #148F77  0%, #148F77  100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, #1578c9), color-stop(100%, #148F77 ));
+background: -webkit-linear-gradient(top, #148F77  0%, #148F77  100%);
+background: -o-linear-gradient(top, #148F77  0%, #148F77  100%);
+background: -ms-linear-gradient(top, #148F77  0%, #148F77  100%);
+background: linear-gradient(to bottom, #148F77  0%, #148F77  100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#148F77', endColorstr='#148F77 ', GradientType=0 );}
+    
+    
+/*Style For UI Panel ------------------------------------------------------------------------------------- */
+
+.ui-panel{border: 1px solid #148F77; padding:2px !important;}
+    .ui-panel .ui-panel-titlebar{padding: 4px 10px 5px 10px !important; font-size: 14px; border:solid 1px #175787; color:#ffffff; text-shadow: 0 -1px 0 #0A385E; z-index:100;
+                                    border-radius:3px !important; -webkit-border-radius:3px !important; -moz-border-radius:3px !important;
+                                    background: #148F77  ;
+                                    background: -moz-linear-gradient(top, #148F77   0%, #0b66b1 100%);
+                                    background: -webkit-gradient(left top, left bottom, color-stop(0%, #148F77  ), color-stop(100%, #148F77  ));
+                                    background: -webkit-linear-gradient(top, #148F77   0%, #148F77   100%);
+                                    background: -o-linear-gradient(top, #148F77   0%, #148F77   100%);
+                                    background: -ms-linear-gradient(top, #148F77   0%, #148F77   100%);
+                                    background: linear-gradient(to bottom, #148F77   0%, #148F77   100%);
+                                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#148F77', endColorstr='#148F77', GradientType=0 ); font-family: 'titillium_webregular' !important;}

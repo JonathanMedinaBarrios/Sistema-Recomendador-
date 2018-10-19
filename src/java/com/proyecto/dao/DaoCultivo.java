@@ -18,5 +18,5 @@ public interface DaoCultivo<Cultivo> {
     public void delete(Cultivo cultivo);
     public void update(Cultivo c);
     List<Cultivo> listarCultivos(int id_Huerto);
-   
+    List<Cultivo> CalendarioCultivos(int id_usuario);
 }

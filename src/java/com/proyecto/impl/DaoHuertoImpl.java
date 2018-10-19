@@ -8,6 +8,7 @@ package com.proyecto.impl;
 import com.proyecto.dao.DaoHuerto;
 import com.proyecto.POJOS.Huerto;;
 import com.proyecto.util.HibernateUtil;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -39,8 +40,13 @@ public class DaoHuertoImpl implements DaoHuerto<Huerto> {
         Query consulta = sesion.createQuery("from Huerto where  id_usuario= :id_usuario"); 
         consulta.setParameter("id_usuario",id_usuario); 
         lista = consulta.list();
+        List <Huerto> lista2 = new ArrayList<>();
+        for(Huerto huerto : lista){
+            huerto.setNumeroCultivo(NumeroCultivo(huerto.getId()));
+            lista2.add(huerto);
+        } 
         sesion.close();
-        return lista;
+        return lista2;
     }
     
     @Override
@@ -50,7 +56,7 @@ public class DaoHuertoImpl implements DaoHuerto<Huerto> {
         Session sesion = sf.openSession(); 
         Query consulta = sesion.createQuery("SELECT COUNT(*) from Cultivo where id_huerto = :id_huerto"); 
         consulta.setParameter("id_huerto",id_huerto); 
-        return  numeroCultivo = (int)consulta.uniqueResult();        
+        return  numeroCultivo = Integer.parseInt(""+consulta.uniqueResult());        
     }
 
 }

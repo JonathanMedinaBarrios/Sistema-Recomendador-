@@ -90,7 +90,9 @@ public class ProductoJSFManagedBean implements Serializable {
     /*FIN LISTAR */
     public void save() {
         try { 
-            producto.getVivero().setIdVivero(vivero.getVivero().getIdVivero());
+            producto.setVivero(vivero.getVivero());
+            System.out.println(producto.getVivero().getIdVivero() 
+                    +" "+ producto.getNombre()+" "+ producto.getMarca()+ " "+ producto.getDescripcion()+" " + producto.getTipo() );
             dao.save(producto);
             lista = dao.ListarProducto(vivero.getVivero().getIdVivero(),tipo);
             producto = new Producto(); 

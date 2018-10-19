@@ -6,7 +6,9 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>OrganicApp</title>
+
+        <link rel="icon" type="image/png" href="#{request.contextPath}/resources/img/icons/tomato.png"/>
         <!-- BOOTSTRAP CSS CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
               integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"></link>
@@ -39,19 +41,19 @@
                         </li>  
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                Registrate</a>
+                                Iniciar sesión
+                            </a>
                             <div class="dropdown-menu">   
-                                <a class="dropdown-item" href="Registro.xhtml" >Usuario</a>
-                                <a class="dropdown-item" href="RegistroVivero.xhtml" >Vivero</a>
+                                <a class="dropdown-item" href="InicioU.xhtml">Usuario</a>
+                                <a class="dropdown-item" href="InicioV.xhtml">Vivero</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                Iniciar sesión
-                            </a>
+                                Registrate</a>
                             <div class="dropdown-menu">   
-                                <a class="dropdown-item"  data-toggle="modal" data-target="#inicioUsuario">Usuario</a>
-                                <a class="dropdown-item"  data-toggle="modal" data-target="#inicioVivero">Vivero</a>
+                                <a class="dropdown-item" href="RegistroU.xhtml" >Usuario</a>
+                                <a class="dropdown-item" href="RegistroV.xhtml" >Vivero</a>
                             </div>
                         </li>
                     </ul>
@@ -69,79 +71,6 @@
                             <p>Si supiera que el mundo se ha de acabar mañana, yo hoy aún plantaría un árbol.</p>
                             <p> Martin Luther King, Jr</p>
                         </div>
-                        <!-- SEGUNDA COLUMNA - LOGIN -->
-
-
-                        <div id="inicioUsuario" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="card text-center" style="background-color: #C8D6AF;">       
-                                            <div class="card-body">
-
-                                                
-
-                                                <h:form>
-                                                    <p:growl id="mensaje" severity="info,fatal" showSummary="true" showDetail="true"/>
-                                                    <h3 class="text-muted">Iniciar sesión</h3>
-
-                                                    <div class="form-group">                         
-                                                        <p:inputText class="form-control form-control-lg" placeholder="E-mail"
-                                                                     pt:type="email" value="#{usuarioManagedBean.username}"    />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <p:inputText class="form-control form-control-lg" placeholder="Contraseña"
-                                                                     pt:type="password" value="#{usuarioManagedBean.password}"/>
-                                                    </div>
-                                                    <h:commandButton value="Entrar" class="btn btn-outline-light btn-block"
-                                                                     action="#{usuarioManagedBean.login()}"/>
-                                                </h:form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="inicioVivero" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="card text-center" style="background-color: #C8D6AF;">       
-                                            <div class="card-body">
-                                                <h:form>
-                                                    <h3 class="text-muted">Iniciar sesión</h3>
-
-                                                    <div class="form-group">
-                                                        <p:growl id="growl" showDetail="true" life="3000" />
-                                                        <p:inputText class="form-control form-control-lg" placeholder="E-mail"
-                                                                     pt:type="email" value="#{viveroManagedBean.username}"    />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <p:inputText class="form-control form-control-lg" placeholder="Contraseña"
-                                                                     pt:type="password" value="#{viveroManagedBean.password}"/>
-                                                    </div>
-                                                    <h:commandButton value="Entrar" class="btn btn-outline-light btn-block"
-                                                                     action="#{viveroManagedBean.login()}"/>
-                                                </h:form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
 
                     </div>
                 </div>

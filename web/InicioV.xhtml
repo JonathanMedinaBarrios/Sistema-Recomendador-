@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Inicio Vivero</title>
+
+        <link rel="icon" type="image/png" href="#{request.contextPath}/resources/img/icons/tomato.png"/>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/fonts/iconic/css/material-design-iconic-font.min.css"/>
+
+        <!--CUSTOM CSS-->
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/mainU.css"/>
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/utilU.css"/>
+    </h:head>
+    <h:body>
+        <div class="container-login100 fondoinicioV">
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
+                <h:form class="login100-form validate-form">
+                    <span class="login100-form-title p-b-37">
+                        ¡Iniciar sesión!
+                    </span>
+
+                    <div class="wrap-input100 validate-input m-b-20" data-validate="E-mail">
+                        <h:inputText class="form-control input100 form-control-lg" pt:placeholder="E-mail"
+                                     pt:type="email" value="#{viveroManagedBean.username}"    />
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-25" data-validate = "Contraseña">
+                        <h:inputText class="form-control input100 form-control-lg" pt:placeholder="Contraseña"
+                                     pt:type="password" value="#{viveroManagedBean.password}"/>
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <h:commandButton value="Entrar" class="btn btn-outline-light btn-block login100-form-btn"
+                                         action="#{viveroManagedBean.login()}"/>
+                    </div>
+
+                    <div class="text-center">
+                        <a href="index.xhtml" class="txt2 hov1">
+                            Regresar al inicio
+                        </a>
+                    </div>
+                </h:form>
+
+
+            </div>
+        </div>
+
+
+        <div id="dropDownSelect1"></div>
+        <script src="/resources/js/main.js"></script>
+
+    </h:body>
+
+
+</html>
+

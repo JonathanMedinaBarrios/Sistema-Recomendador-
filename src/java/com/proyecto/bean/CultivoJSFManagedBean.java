@@ -8,6 +8,11 @@ package com.proyecto.bean;
 import com.proyecto.dao.DaoCultivo;
 import com.proyecto.impl.DaoCultivoImpl;
 import com.proyecto.POJOS.Cultivo;
+import com.proyecto.POJOS.Historialrecomendacion;
+import com.proyecto.POJOS.Planta;
+import com.proyecto.POJOS.Recomendacion;
+import com.proyecto.dao.DaoRecomendacion;
+import com.proyecto.impl.DaoRecomendacionCuidadoImpl;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -24,7 +29,10 @@ import javax.faces.context.FacesContext;
 @ApplicationScoped
 public class CultivoJSFManagedBean {
 
-    private Cultivo cultivo = new Cultivo();
+    private Cultivo cultivo;
+    private Planta planta ; 
+    private DaoRecomendacion recomendancion = new DaoRecomendacionCuidadoImpl();
+    
     private DaoCultivo dao = new DaoCultivoImpl();
     private List<Cultivo> lista = new ArrayList<>();
     FacesContext context;
@@ -36,6 +44,8 @@ public class CultivoJSFManagedBean {
     //LISTAR CULTIVOS 
     @PostConstruct
     public void iniciar() {
+        planta = new Planta(); 
+        cultivo = new Cultivo();
         context = FacesContext.getCurrentInstance();
         huerto = context.getApplication().evaluateExpressionGet(context, "#{huertoManagedBean}", HuertoJSFManagedBean.class); 
     }
@@ -59,15 +69,36 @@ public class CultivoJSFManagedBean {
         this.lista = lista;
     }
 
-    public void save() {
-        try {
+    public Planta getPlanta() {
+        return planta;
+    }
+
+    public void setPlanta(Planta planta) {
+        this.planta = planta;
+    }
+    
+   
+    public String  save() {
+        try { 
             cultivo.setHuerto(huerto.getHuerto());
+            cultivo.setPlanta(planta);
+            Historialrecomendacion historial = new Historialrecomendacion();
+            historial.setRecomendacion((Recomendacion) recomendancion.crearRecomendacion(huerto.getHuerto().getUsuario().getIdUsuario(), planta.getId()));
+            if(historial.getRecomendacion()==null){
+            }else{
+                historial.setUsuario(huerto.getHuerto().getUsuario());
+                recomendancion.save(historial);
+            }
             dao.save(cultivo);
             cultivo = new Cultivo(); 
             huerto.listar();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "aviso", "Registro exitoso..."));
+            FacesMessage msg = new  FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Registro Exitoso!"); 
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return "MisHuertos";
         } catch (Exception e){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "aviso", "Registro fallido..."));
+            FacesMessage msg = new  FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Registro Fallido"); 
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return "MisHuertos";
         }
         
     }

@@ -26,8 +26,10 @@ public class Cultivo  implements java.io.Serializable {
      private int id;
      private Huerto huerto;
      private Planta planta;
-     private double progreso; 
+     private String progreso; 
      private Date fechaSiembra;
+     private Date fechaInicialCosecha;
+     private Date fechaFinalCosecha;
 
     public Cultivo() {
     }
@@ -73,7 +75,8 @@ public class Cultivo  implements java.io.Serializable {
 
     @Temporal(TemporalType.DATE)
     @Column(name="fecha_siembra", nullable=false, length=13)
-    public Date getFechaSiembra() {
+    public Date getFechaSiembra(){
+        
         return this.fechaSiembra;
     }
     
@@ -81,17 +84,31 @@ public class Cultivo  implements java.io.Serializable {
         this.fechaSiembra = fechaSiembra;
     }
 
-    public double getProgreso() {
+    public String getProgreso() {
         return progreso;
     }
 
-    public void setProgreso(double progreso) {
+    public void setProgreso(String progreso) {
         this.progreso = progreso;
     }
 
+    public Date getFechaInicialCosecha() {
+        return fechaInicialCosecha;
+    }
+
+    public void setFechaInicialCosecha(Date fechaInicialCosecha) {
+        this.fechaInicialCosecha = fechaInicialCosecha;
+    }
+
+    public Date getFechaFinalCosecha() {
+        return fechaFinalCosecha;
+    }
+
+    public void setFechaFinalCosecha(Date fechaFinalCosecha) {
+        this.fechaFinalCosecha = fechaFinalCosecha;
+    }
     
-
-
+    
 }
 
 

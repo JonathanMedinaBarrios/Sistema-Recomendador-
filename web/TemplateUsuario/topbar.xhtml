@@ -3,18 +3,29 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
 
 
     <div id="layout-header" class="Unselectable fontRegular">
         <a href="dashboard.xhtml" id="layout-logo">
-            <h:graphicImage style="width: 25px; height: 23px;" name="images/Iconohuerto.png" styleClass="Fleft" library="sentinel-layout"/>
-            <span class="Fs19 FontTitilliumSemiBoldItalic Fleft"><span class="softblue"> RECOMENDER</span><span class="hardblue">SYSTEM</span></span>
+            <h:graphicImage style="width: 150px; height: 25px;" name="images/LogoProyecto.png" styleClass="Fleft" library="sentinel-layout"/>
         </a>
         <ul id="sm-topmenu" class="layout-header-widgets white Fs14">
             <!-- CONTENDRÁ LAS RECOMENDACIONES GENERADAS -->
-            <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-mail"></i><span class="alertBubble BordRad10 Fs9">166</span>
-
+            <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-mail"></i><span class="alertBubble BordRad10 Fs9">1</span>
+                <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+                    <p:repeat  value="#{historialRecomendacionesBean.lista}" var="Recomendacion">
+                        <li class="Animated05">
+                            <a href="#" class="white Unselectable">
+                                <p:graphicImage url="#{Recomendacion.rutaimagen}" 
+                                                style="height: 30px; width: 30px; border-radius: 50%;"/> 
+                                <h:outputText value="#{Recomendacion.tipo}" />
+                            </a>
+                        </li>
+                    </p:repeat>
+                    <li class="Animated05"><a href="Recomendaciones.xhtml" class="white Unselectable"><i class="icon-mail"></i>Mis Recomendaciones</a></li>
+                </ul>
             </li>
             <!--FOTO DE PERFIL DE USUARIO, CON LISTA DESPLEGABLE QUE PERMITA MODIFICAR SUS DATOS PERSONALES-->
             <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-user-male"></i>
@@ -32,7 +43,7 @@
             <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-power"></i>
                 <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
                     <li class="Animated05"><a href="#" class="white Unselectable"><i class="icon-ccw-1"></i>Restart</a></li>
-                    <li class="Animated05"><a href="#{usuarioManagedBean.cerrarSesion()}" class="white Unselectable"><i class="icon-logout"></i>Cerrar Sesion</a></li>
+                    <li class="Animated05"><a href="#{request.contextPath}#{usuarioManagedBean.cerrarSesion()}" class="white Unselectable"><i class="icon-logout"></i>Cerrar Sesion</a></li>
                 </ul>
             </li>
         </ul>

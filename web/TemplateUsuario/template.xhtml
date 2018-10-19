@@ -17,7 +17,12 @@
         <ui:insert name="head" />
      </h:head>
 
-    <h:body>        
+    <h:body>   
+        
+        <f:facet name="last">
+            <h:outputStylesheet name="css/sentinelPersonalizado.css" />
+        </f:facet>
+        
         <ui:include src="topbar.xhtml" />
 
         <ui:include src="leftmenu.xhtml" />
